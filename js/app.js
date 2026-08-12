@@ -4,12 +4,12 @@ const CONFIG={
 };
 const C={
  smt:"SMT ID",imis:"IMIS ID",lac:"New LAC \n [ After De-limitation ]",gp:"GP",scheme:"Name of Scheme",so:"SO NAME",sub:"Sub-Division",
- brain:"Work Status \n[ as per JJM Brain as on 10-08-2026 ]",field:"PWSS Operational Status as per FIELD",
+ brain:"Repairing Work Status \n[ as per JJM Brain as on 10-08-2026 ]",field:"PWSS Operational Status as per FIELD",
  resolve:"Work will be resolve / done by\n[ For Partially or Non Operative PWSS ]",
  estimate:"Estimate Prepared or Not\n[ For Partially or Non Operative PWSS ]",
  aa:"Whether AA Accorded\n[ For Partially or Non Operative PWSS ]",allot:"Work Allotted or Not\n[ For Partially or Non Operative PWSS ]",
  amount:"Estimate Amount [ in Rs. ]",contractor:"If Work Allotted - Name of the Contractor",
- work:"Work Status for making the PWSS functional [ Not Started / Ongoing / Halted / Completed ]",
+ work:"Repairing Work Status for making the PWSS functional [ Not Started / Ongoing / Halted / Completed ]",
  remarks:"Remarks",block:"Block\n [ After Delimitation ]",progress:"Physical progress (in %) as per IMIS\n [ 30-06-2026 ]"
 };
 let rows=[], filtered=[], charts={}, page="warroom";
@@ -143,7 +143,7 @@ function soDetail(so){
  ${kpi("Ongoing",rs.filter(r=>up(r[C.work])==="ONGOING").length,"","warn")}${kpi("Completed",done,pct(done,rs.length).toFixed(1)+"%","green")}
  ${kpi("Est. Amount",`₹${(amount/1e5).toFixed(1)} L`,rs.filter(r=>n(r[C.amount])>0).length+" records with amount")}${kpi("Data Coverage",pct(rs.length-miss,rs.length).toFixed(1)+"%",miss+" missing work status")}
  </div>
- <div style="margin-top:11px" class="table-wrap"><table class="table"><thead><tr><th>SMT ID</th><th>IMIS ID</th><th>Scheme</th><th>GP</th><th>LAC</th><th>Sub-Division</th><th>Field</th><th>Resolve By</th><th>Estimate</th><th>Est. Amount</th><th>AA</th><th>Allotted</th><th>Contractor</th><th>Work Status</th><th>Phys. Progress</th><th>Remarks</th></tr></thead><tbody>
+ <div style="margin-top:11px" class="table-wrap"><table class="table"><thead><tr><th>SMT ID</th><th>IMIS ID</th><th>Scheme</th><th>GP</th><th>LAC</th><th>Sub-Division</th><th>Field</th><th>Resolve By</th><th>Estimate</th><th>Est. Amount</th><th>AA</th><th>Allotted</th><th>Contractor</th><th>Repairing Work Status</th><th>Phys. Progress</th><th>Remarks</th></tr></thead><tbody>
  ${rs.map(r=>`<tr><td>${esc(r[C.smt])}</td><td>${esc(r[C.imis])||"—"}</td><td>${esc(r[C.scheme])}</td><td>${esc(r[C.gp])||"—"}</td><td>${esc(r[C.lac])||"—"}</td><td>${esc(r[C.sub])}</td><td>${badge(r[C.field])}</td><td>${esc(r[C.resolve])||"—"}</td><td>${badge(r[C.estimate])}</td><td>${n(r[C.amount])?`₹${n(r[C.amount]).toLocaleString("en-IN")}`:"—"}</td><td>${badge(r[C.aa])}</td><td>${badge(r[C.allot])}</td><td>${esc(r[C.contractor])||"—"}</td><td>${badge(r[C.work])}</td><td>${norm(r[C.progress])||"—"}</td><td>${esc(r[C.remarks])||"—"}</td></tr>`).join("")}
  </tbody></table></div>`);
 }
@@ -200,7 +200,7 @@ function lacDetail(lac){
  <div class="grid g4">${kpi("Affected",rs.length)}${kpi("Non-Operative",rs.filter(r=>up(r[C.field])==="NON OPERATIVE").length,"","danger")}
  ${kpi("Ongoing",rs.filter(r=>up(r[C.work])==="ONGOING").length,"","blue")}${kpi("Completed",rs.filter(r=>up(r[C.work])==="COMPLETED").length,"","green")}</div>
  <div style="margin-top:11px" class="table-wrap"><table class="table"><thead><tr>
- <th>SMT ID</th><th>Scheme</th><th>SO</th><th>Sub-Division</th><th>Field Status</th><th>Resolve By</th><th>Estimate</th><th>Allotted</th><th>Contractor</th><th>Work Status</th><th>Remarks</th>
+ <th>SMT ID</th><th>Scheme</th><th>SO</th><th>Sub-Division</th><th>Field Status</th><th>Resolve By</th><th>Estimate</th><th>Allotted</th><th>Contractor</th><th>Repairing Work Status</th><th>Remarks</th>
  </tr></thead><tbody>${rs.map(r=>`<tr><td>${esc(r[C.smt])}</td><td>${esc(r[C.scheme])}</td><td>${esc(r[C.so])}</td><td>${esc(r[C.sub])}</td>
  <td>${badge(r[C.field])}</td><td>${esc(r[C.resolve])||"—"}</td><td>${badge(r[C.estimate])}</td><td>${badge(r[C.allot])}</td>
  <td>${esc(r[C.contractor])||"—"}</td><td>${badge(r[C.work])}</td><td>${esc(r[C.remarks])||"—"}</td></tr>`).join("")}</tbody></table></div>`);
@@ -222,7 +222,7 @@ function renderRegister(){
  <select id="regAgency"><option value="">All Agencies</option></select>
  <button class="btn btn-dark" id="exportBtn">Export CSV</button></div>
  <div id="regCount" class="section-note"></div>
- <div class="table-wrap"><table class="table" id="regTable"><thead><tr><th>SMT ID</th><th>Scheme</th><th>SO</th><th>Sub-Division</th><th>Field</th><th>Resolve By</th><th>Estimate</th><th>Amount</th><th>Allotted</th><th>Contractor</th><th>Work Status</th><th>Remarks</th></tr></thead><tbody></tbody></table></div>`;
+ <div class="table-wrap"><table class="table" id="regTable"><thead><tr><th>SMT ID</th><th>Scheme</th><th>SO</th><th>Sub-Division</th><th>Field</th><th>Resolve By</th><th>Estimate</th><th>Amount</th><th>Allotted</th><th>Contractor</th><th>Repairing Work Status</th><th>Remarks</th></tr></thead><tbody></tbody></table></div>`;
  let agencies=[...new Set(filtered.map(r=>norm(r[C.resolve])))].filter(Boolean).sort();$("#regAgency").innerHTML+='<option value="">All Agencies</option>'+agencies.map(x=>`<option>${esc(x)}</option>`).join("");
  ["regSearch","regWork","regAllot","regAgency"].forEach(id=>$("#"+id).oninput=updateReg);$("#exportBtn").onclick=exportCSV;updateReg();
 }
@@ -234,12 +234,12 @@ function updateReg(){
 }
 function exportCSV(){let rs=window.regRows||filtered,cols=[C.smt,C.imis,C.lac,C.scheme,C.gp,C.so,C.sub,C.field,C.resolve,C.estimate,C.aa,C.allot,C.amount,C.contractor,C.work,C.remarks];let csv=Papa.unparse(rs.map(r=>Object.fromEntries(cols.map(c=>[c,r[c]??""]))));let b=new Blob([csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="PWSS_Restoration_Action_Register.csv";a.click();URL.revokeObjectURL(a.href);toast("Register exported.")}
 function renderQuality(){
- let a=filtered,N=a.length,checks=[["Resolution agency missing",a.filter(r=>!norm(r[C.resolve])).length],["Estimate status missing",a.filter(r=>!norm(r[C.estimate])).length],["Estimate amount missing",a.filter(r=>!n(r[C.amount])).length],["Allotment status missing",a.filter(r=>!norm(r[C.allot])).length],["Contractor missing",a.filter(r=>!norm(r[C.contractor])).length],["Work status missing",a.filter(r=>!norm(r[C.work])).length],["Remarks missing",a.filter(r=>!norm(r[C.remarks])).length]];
+ let a=filtered,N=a.length,checks=[["Resolution agency missing",a.filter(r=>!norm(r[C.resolve])).length],["Estimate status missing",a.filter(r=>!norm(r[C.estimate])).length],["Estimate amount missing",a.filter(r=>!n(r[C.amount])).length],["Allotment status missing",a.filter(r=>!norm(r[C.allot])).length],["Contractor missing",a.filter(r=>!norm(r[C.contractor])).length],["Repairing Work status missing",a.filter(r=>!norm(r[C.work])).length],["Remarks missing",a.filter(r=>!norm(r[C.remarks])).length]];
  let flags=[["Allotted YES + contractor missing",a.filter(r=>up(r[C.allot])==="YES"&&!norm(r[C.contractor])).length],["Completed + field Non-Operative",a.filter(r=>up(r[C.work])==="COMPLETED"&&up(r[C.field])==="NON OPERATIVE").length],["Ongoing + allotment not YES",a.filter(r=>up(r[C.work])==="ONGOING"&&up(r[C.allot])!=="YES").length],["Halted",a.filter(r=>up(r[C.work])==="HALTED").length]];
  $("#page-quality").innerHTML=section("Data Quality & Reconciliation","Separate missing reporting from actual negative responses")+`
  <div class="grid g2">${panel("Completeness","Missing data in current scope",`<div class="table-wrap"><table class="table"><thead><tr><th>Field</th><th>Missing</th><th>Coverage</th></tr></thead><tbody>${checks.map(x=>`<tr><td>${x[0]}</td><td><b>${x[1]}</b></td><td>${pct(N-x[1],N).toFixed(1)}%</td></tr>`).join("")}</tbody></table></div>`)}
  ${panel("Reconciliation Flags","Potential inconsistencies",`<div class="table-wrap"><table class="table"><thead><tr><th>Rule</th><th>Records</th></tr></thead><tbody>${flags.map(x=>`<tr><td>${x[0]}</td><td><b>${x[1]}</b></td></tr>`).join("")}</tbody></table></div>`)}</div>
- <div class="callout info-callout" style="margin-top:12px"><strong>Rule:</strong><small>Blank Work Status is treated as <b>Not Reported</b>, not as Not Started. This preserves the distinction between operational delay and reporting non-compliance.</small></div>`;
+ <div class="callout info-callout" style="margin-top:12px"><strong>Rule:</strong><small>Blank Repairing Work Status is treated as <b>Not Reported</b>, not as Not Started. This preserves the distinction between operational delay and reporting non-compliance.</small></div>`;
 }
 function renderReports(){
  $("#page-reports").innerHTML=section("Reports","Print-ready management summaries")+`
