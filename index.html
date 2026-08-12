@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PWSS Restoration War Room | Tinsukia Division</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.5.3/papaparse.min.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="seal">P</div>
+      <div><div class="brand-main">PHED</div><div class="brand-sub">TINSUKIA DIVISION</div></div>
+    </div>
+    <div class="system-name">PWSS RESTORATION<br><span>WAR ROOM</span></div>
+    <nav id="nav">
+      <button class="nav active" data-page="warroom"><span>01</span> Executive War Room</button>
+      <button class="nav" data-page="pipeline"><span>02</span> Restoration Pipeline</button>
+      <button class="nav" data-page="so"><span>03</span> SO Name-wise Report</button>
+      <button class="nav" data-page="subdivision"><span>04</span> Sub-Division Report</button>
+      <button class="nav" data-page="lac"><span>05</span> LAC Report</button>
+      <button class="nav" data-page="agency"><span>06</span> Responsibility / Agency</button>
+      <button class="nav" data-page="register"><span>07</span> Action Register</button>
+      <button class="nav" data-page="quality"><span>08</span> Data Quality</button>
+      <button class="nav" data-page="reports"><span>09</span> Reports</button>
+      <button class="nav" data-page="soestimate"><span>10</span> SO Wise Estimation</button>
+    </nav>
+    <div class="side-bottom">
+      <div class="micro">MONITORING SCOPE</div>
+      <b>HANDED_OVER</b>
+      <div>Field status: Partially / Non-Operative</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="title-wrap">
+        <div class="govline">PUBLIC HEALTH ENGINEERING DEPARTMENT · GOVERNMENT OF ASSAM</div>
+        <h1>PWSS Restoration Monitoring</h1>
+        <div class="subtitle">Tinsukia Division · Restoration of handed-over PWSS reported as Partially / Non-Operative</div>
+      </div>
+      <div class="toolbar">
+        <div id="dataStatus" class="live-status">Connecting to live data…</div>
+        <button class="btn btn-light" id="refreshBtn">↻ Refresh</button>
+        <button class="btn btn-dark" id="printBtn">Print</button>
+      </div>
+    </header>
+
+    <div id="globalFilters" class="global-filters">
+      <select id="globalSub"><option value="">All Sub-Divisions</option></select>
+      <select id="globalSO"><option value="">All Section Officers</option></select>
+      <select id="globalField"><option value="">All Field Status</option><option>Non Operative</option><option>Partially Operative</option></select>
+      <button id="clearFilters" class="btn btn-light">Clear Filters</button>
+    </div>
+
+    <section id="page-warroom" class="page active"></section>
+    <section id="page-pipeline" class="page"></section>
+    <section id="page-so" class="page"></section>
+    <section id="page-subdivision" class="page"></section>
+    <section id="page-lac" class="page"></section>
+    <section id="page-agency" class="page"></section>
+    <section id="page-register" class="page"></section>
+    <section id="page-quality" class="page"></section>
+    <section id="page-reports" class="page"></section>
+    <section id="page-soestimate" class="page"></section>
+  </main>
+</div>
+<div id="toast" class="toast"></div>
+<script src="js/app.js"></script>
+</body>
+</html>
